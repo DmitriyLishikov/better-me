@@ -37,13 +37,24 @@ npm install
 npm run build
 ```
 
-### 5. Migrate
+### 4. Set up enviroment variables
+
+1. Copy `.env.example` file to `.env`.
+2. Fill `.env` file keys with your own values
+
+### 5. Key generate
+
+```bash
+php artisan key:generate
+```
+
+### 6. Migrate
 
 ```bash
 php artisan migrate
 ```
 
-### 6. Start server
+### 7. Start server
 
 ```bash
 php artisan serve
