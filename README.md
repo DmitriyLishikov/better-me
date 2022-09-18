@@ -42,3 +42,9 @@ npm run build
 ```bash
 php artisan migrate
 ```
+
+### 6. Start server
+
+```bash
+php artisan serve
+```
