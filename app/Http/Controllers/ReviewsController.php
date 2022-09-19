@@ -24,6 +24,7 @@ class ReviewsController extends Controller
     /**
      * @param ReviewCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ReviewCreateRequest $request)
     {
@@ -61,9 +62,12 @@ class ReviewsController extends Controller
      * @param ReviewCreateRequest $request
      * @param Review $review
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(ReviewCreateRequest $request, Review $review)
     {
+        $this->authorize('update', $review);
+
         $review->update($request->validated());
 
         return redirect()->route('dashboard');
@@ -72,9 +76,12 @@ class ReviewsController extends Controller
     /**
      * @param Review $review
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Review $review)
     {
+        $this->authorize('delete', $review);
+
         $review->delete();
 
         return redirect()->back();

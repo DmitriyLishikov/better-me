@@ -21,6 +21,7 @@ class BookController extends Controller
     /**
      * @param BookCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(BookCreateRequest $request)
     {
@@ -58,9 +59,12 @@ class BookController extends Controller
      * @param BookUpdateRequest $request
      * @param Book $book
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(BookUpdateRequest $request, Book $book)
     {
+        $this->authorize('update', $book);
+
         $book->update($request->validated());
 
         return redirect()->route('dashboard');
@@ -69,9 +73,12 @@ class BookController extends Controller
     /**
      * @param Book $book
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Book $book)
     {
+        $this->authorize('delete', $book);
+
         $book->delete();
 
         return redirect()->route('dashboard');
