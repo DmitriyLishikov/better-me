@@ -26,7 +26,7 @@ class BookCreateRequest extends FormRequest
         return [
             'title'         => 'required|string|min:3',
             'author'        => 'required|string|min:3',
-            'create_date'   => 'required'
+            'create_date'   => 'required|min:4|max:4'
         ];
     }
 }

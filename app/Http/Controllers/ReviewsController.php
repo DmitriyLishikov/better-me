@@ -5,84 +5,85 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Review\ReviewCreateRequest;
 use App\Models\Book;
 use App\Models\Review;
+use App\Services\BookService;
+use App\Services\ReviewService;
 use Inertia\Inertia;
 
 class ReviewsController extends Controller
 {
 
     /**
-     * @param Book $book
+     * @param int $book
+     * @param BookService $bookService
      * @return \Inertia\Response
      */
-    public function create(Book $book)
+    public function create(int $book, BookService $bookService): \Inertia\Response
     {
         return Inertia::render('Review/Create', [
-            'book' => $book,
+            'book' => $bookService->getBook($book),
         ]);
     }
 
     /**
      * @param ReviewCreateRequest $request
+     * @param ReviewService $reviewService
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(ReviewCreateRequest $request)
+    public function store(ReviewCreateRequest $request, ReviewService $reviewService): \Illuminate\Http\RedirectResponse
     {
-        $request->merge(['user_id' => auth()->id()]);
-
-        Review::create($request->all());
+        $reviewService->store($request);
 
         return redirect()->route('books.show', ['book' => $request->book_id]);
     }
 
     /**
-     * @param Review $review
+     * @param int $review
+     * @param ReviewService $reviewService
      * @return \Inertia\Response
      */
-    public function show(Review $review)
+    public function show(int $review, ReviewService $reviewService): \Inertia\Response
     {
+        $review = $reviewService->show($review);
+
         return Inertia::render('Review/Show', [
             'review' => $review,
             'user'   => $review->user()->first()
         ]);
     }
 
-    /**
-     * @param Review $review
-     * @return \Inertia\Response
-     */
-    public function edit(Review $review)
+
+    public function edit(int $review, ReviewService $reviewService)
     {
         return Inertia::render('Review/Update', [
-            'review' => $review,
+            'review' => $reviewService->getReview($review),
         ]);
     }
 
     /**
      * @param ReviewCreateRequest $request
-     * @param Review $review
+     * @param int $review
+     * @param ReviewService $reviewService
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(ReviewCreateRequest $request, Review $review)
+    public function update(ReviewCreateRequest $request, int $review, ReviewService $reviewService): \Illuminate\Http\RedirectResponse
     {
-        $this->authorize('update', $review);
+        $this->authorizeResource(Review::class, $review);
 
-        $review->update($request->validated());
+        $reviewService->update($request->validated(), $review);
 
         return redirect()->route('dashboard');
     }
 
     /**
-     * @param Review $review
+     * @param int $review
+     * @param ReviewService $reviewService
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Review $review)
+    public function destroy(int $review, ReviewService $reviewService): \Illuminate\Http\RedirectResponse
     {
-        $this->authorize('delete', $review);
+        $this->authorizeResource(Review::class, $review);
 
-        $review->delete();
+        $reviewService->destroy($review);
 
         return redirect()->back();
     }

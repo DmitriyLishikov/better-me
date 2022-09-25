@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Book\BookCreateRequest;
 use App\Http\Requests\Book\BookUpdateRequest;
 use App\Models\Book;
+use App\Services\BookService;
 use Inertia\Inertia;
 
 class BookController extends Controller
@@ -13,7 +14,7 @@ class BookController extends Controller
     /**
      * @return \Inertia\Response
      */
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('Book/Create');
     }
@@ -21,65 +22,63 @@ class BookController extends Controller
     /**
      * @param BookCreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(BookCreateRequest $request)
+    public function store(BookCreateRequest $request, BookService $bookService): \Illuminate\Http\RedirectResponse
     {
-        $request->merge(['user_id' => auth()->id()]);
-
-        Book::create($request->all());
+        $bookService->store($request);
 
         return redirect()->route('dashboard');
     }
 
 
     /**
-     * @param Book $book
+     * @param int $book
      * @return \Inertia\Response
      */
-    public function show(Book $book)
+    public function show(int $book, BookService $bookService): \Inertia\Response
     {
         return Inertia::render('Book/Show', [
-            'book' => $book->load(['reviews.user']),
+            'book' => $bookService->show($book)
         ]);
     }
 
     /**
-     * @param Book $book
+     * @param int $book
+     * @param BookService $bookService
      * @return \Inertia\Response
      */
-    public function edit(Book $book)
+    public function edit(int $book, BookService $bookService): \Inertia\Response
     {
         return Inertia::render('Book/Update', [
-            'book' => $book,
+            'book' => $bookService->getBook($book)
         ]);
     }
 
     /**
      * @param BookUpdateRequest $request
-     * @param Book $book
+     * @param int $book
+     * @param BookService $bookService
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(BookUpdateRequest $request, Book $book)
+    public function update(BookUpdateRequest $request, int $book, BookService $bookService): \Illuminate\Http\RedirectResponse
     {
-        $this->authorize('update', $book);
+        $this->authorizeResource(Book::class, $book);
 
-        $book->update($request->validated());
+        $bookService->update($request->validated(), $book);
 
         return redirect()->route('dashboard');
     }
 
     /**
-     * @param Book $book
+     * @param int $book
+     * @param BookService $bookService
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Book $book)
+    public function destroy(int $book, BookService $bookService): \Illuminate\Http\RedirectResponse
     {
-        $this->authorize('delete', $book);
+        $this->authorizeResource(Book::class, $book);
 
-        $book->delete();
+        $bookService->destroy($book);
 
         return redirect()->route('dashboard');
     }
