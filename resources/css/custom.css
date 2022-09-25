@@ -1,5 +1,5 @@
 *{
-    font-family: 'Inter' !important;
+    font-family: 'Inter';
 }
 body{
     background: #F5F5F5;
@@ -25,4 +25,54 @@ body{
 
 .filters:hover {
     color: #000;
+}
+
+table{
+    margin-top: 40px;
+    text-align: left;
+    font-style: normal;
+}
+
+table tr{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+table th{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 140%;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 0 0 24px 0;
+}
+
+table th:last-of-type {
+    padding-right: 0;
+    text-align: right;
+}
+
+table td {
+    min-width: 60px;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    color: #000000;
+    padding: 24px 24px 24px 0;
+}
+
+table td:last-of-type {
+    padding-right: 0;
+    text-align: right;
+}
+
+.title-attributes{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 140%;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 0 50px;
 }

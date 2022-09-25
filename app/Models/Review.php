@@ -17,6 +17,13 @@ class Review extends Model
     protected $guarded = [];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['shortContent'];
+
+    /**
      * The relationships that should always be loaded.
      *
      * @var array
@@ -24,8 +31,8 @@ class Review extends Model
     protected $with = ['book'];
 
     protected $casts = [
-        'created_at'  => 'date:Y-m-d',
-        'updated_at'  => 'date:Y-m-d',
+        'created_at'  => 'date:Y',
+        'updated_at'  => 'date:Y',
     ];
 
     public function book()
@@ -38,4 +45,8 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    protected function getShortContentAttribute(){
+        return mb_substr($this->content, 0, 100) . '...';
+    }
 }

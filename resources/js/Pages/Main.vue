@@ -33,19 +33,19 @@
                         </template>
                         <template #body>
                             <table-row v-for="book in books.data" :key="book.id">
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell class="">
                                     <span v-text="book.title"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell class="">
                                     <span v-text="book.author"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell class="">
                                     <span v-text="book.create_date"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
-                                    <Link  :href="route('books.show', book.id)" class="text-sm text-gray-700 dark:text-gray-500 underline">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <polygon points="7 7 15.586 7 5.293 17.293 6.707 18.707 17 8.414 17 17 19 17 19 5 7 5 7 7"/>
+                                <table-cell class="text-center">
+                                    <Link  :href="route('books.show', book.id)" class="underline">
+                                        <svg class="my-0 mx-auto" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.62884 0.75H1.37884V1V2.33441V2.58441H1.62884H22.1186L0.823223 23.8798L0.646415 24.0566L0.823255 24.2334L1.76701 25.1768L1.94379 25.3535L2.12054 25.1768L23.3966 3.90074V24.3521V24.6021H23.6466H24.981H25.231V24.3521V2.33441V1V0.75H24.981H23.6466H1.62884Z" fill="black" stroke="black" stroke-width="0.5"/>
                                         </svg>
                                     </Link>
                                 </table-cell>

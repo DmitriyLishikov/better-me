@@ -12,9 +12,15 @@
         </div>
 
         <div class="flex flex-col col-span-12">
-            <h2 class="h2-custom">
-                {{book.title}}
-            </h2>
+            <div class="flex w-full justify-between">
+                <h2 class="h2-custom">
+                    {{book.title}}
+                </h2>
+                <div class="flex items-end">
+                    <span class="title-attributes">{{book.author}}</span>
+                    <span class="title-attributes">{{book.create_date}}</span>
+                </div>
+            </div>
 
             <search-form></search-form>
 
@@ -42,16 +48,16 @@
                         </template>
                         <template #body>
                             <table-row v-for="(review, index)  in reviews" :key="book.id">
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('reviews.show', {review: review.id})" v-text="index + 1"></Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="review.user.name"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
-                                    <span v-text="review.content"></span>
+                                <table-cell>
+                                    <span v-text="review.shortContent"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="review.created_at"></span>
                                 </table-cell>
                             </table-row>

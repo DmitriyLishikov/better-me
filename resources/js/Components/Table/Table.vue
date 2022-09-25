@@ -1,20 +1,20 @@
 <template>
     <div class="flex flex-col relative">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-x-auto">
+            <div class="py-2 align-middle inline-block min-w-full">
                 <div class="overflow-hidden border-b border-gray-200">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full">
+                        <thead class="">
                         <tr>
                             <slot name="head"/>
                         </tr>
                         </thead>
 
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="">
                         <slot name="body"/>
                         </tbody>
 
-                        <tbody v-if="$slots.summary" class="bg-white divide-y divide-gray-200">
+                        <tbody v-if="$slots.summary" class="">
                         <slot name="summary"/>
                         </tbody>
                     </table>

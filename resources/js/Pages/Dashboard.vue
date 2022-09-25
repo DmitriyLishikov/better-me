@@ -19,9 +19,9 @@
 
 
     <div class="flex flex-col">
-        <h3>My books</h3>
+        <h3 class="font-medium my-4">My books</h3>
 
-        <div class="flex flex-col col-span-12 m-2">
+        <div class="flex flex-col col-span-12 my-2">
             <div class="col-span-12 md:col-span-2 align-self-start">
                 <div v-if="books.data.length < 1">
                     Not books
@@ -38,22 +38,22 @@
                         </template>
                         <template #body>
                             <table-row v-for="(book, index)  in books.data" :key="book.id">
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="index + 1"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('books.show', {book: book.id})" v-text="book.title"></Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="book.author"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('books.show', {book: book.id})">Show</Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('books.edit', {book: book.id})">Update</Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <form method="post" :action="route('books.destroy', {book: book.id})">
                                         <input type="hidden" name="_token" :value="csrf">
                                         <input type="hidden" name="_method" value="delete" />
@@ -70,9 +70,9 @@
     </div>
 
     <div class="flex flex-col">
-        <h3>My reviews</h3>
+        <h3 class="font-medium my-4">My reviews</h3>
 
-        <div class="flex flex-col col-span-12 m-2">
+        <div class="flex flex-col col-span-12 my-2">
             <div class="col-span-12 md:col-span-2 align-self-start">
                 <div v-if="reviews.data.length < 1">
                     Not reviews
@@ -90,25 +90,25 @@
                         </template>
                         <template #body>
                             <table-row v-for="(review, index)  in reviews.data" :key="review.id">
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="index + 1"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('books.show', {book: review.book_id})" v-text="review.book.title"></Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
-                                    <span v-text="review.content"></span>
+                                <table-cell>
+                                    <span v-text="review.shortContent"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <span v-text="review.created_at"></span>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('reviews.show', {review: review.id})">Show</Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <Link :href="route('reviews.edit', {review: review.id})">Update</Link>
                                 </table-cell>
-                                <table-cell class="text-sm font-medium text-gray-900">
+                                <table-cell>
                                     <form method="post" :action="route('reviews.destroy', {review: review.id})">
                                         <input type="hidden" name="_token" :value="csrf">
                                         <input type="hidden" name="_method" value="delete" />
